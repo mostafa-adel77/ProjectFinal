@@ -3,6 +3,7 @@ import axios from "axios";
 import { FaPlusCircle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 export default function ProductCard() {
+  let theDomain = "http://localhost:5173/shop";
   const [product, setProduct] = useState([]);
   const navigate = useNavigate();
   let domain = "http://localhost:1337";
@@ -20,25 +21,25 @@ export default function ProductCard() {
       });
   }, []);
   return (
-    <div className=" text-black grid grid-cols-1 md:grid-cols-3 gap-10 p-4">
+    <div className=" text-black pb-40 md:pb-20 grid grid-cols-1 md:grid-cols-3 gap-10 ">
       {product.map((el) => (
         <div
           key={el.documentId}
           className="py-15 hover:bg-gray-200 hover:rounded-4xl "
         >
-          <div className="relative">
+          <div className="flex flex-col gap-3 items-center">
             <img
               className="w-full lg:w-75 transform ease-out duration-500 hover:-translate-y-15"
               src={domain + el.img?.url}
               alt=""
             />
+            <h1 className="text-center text-xl font-semibold">{el.name}</h1>
+            <h1 className="text-center text-xl font-bold">${el.price}.00</h1>
             <FaPlusCircle
               onClick={() => navigate("/cart")}
-              className="text-4xl cursor-pointer absolute -bottom-25 left-40 md:left-20  xl:left-30 "
+              className="text-4xl cursor-pointer"
             />
           </div>
-          <h1 className="text-center text-xl font-semibold">{el.name}</h1>
-          <h1 className="text-center text-xl font-bold">${el.price}.00</h1>
         </div>
       ))}
     </div>

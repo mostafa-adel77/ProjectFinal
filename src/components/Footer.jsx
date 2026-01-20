@@ -20,9 +20,9 @@ export default function Footer() {
 
   return (
     <div className="w-full bg-white flex justify-center text-black">
-      <div className="container pt-40">
+      <div className="container md:pl-5 pt-40">
         <div className="top flex flex-col lg:flex-row relative">
-          <div className="left flex flex-col">
+          <div className="left md:pt-20 flex flex-col">
             <h1 className="text-3xl flex gap-3 items-center font-semibold">
               <span className="text-Gray">
                 <MdOutlineMailOutline />
@@ -85,22 +85,22 @@ export default function Footer() {
               habitant
             </p>
             <div className="icons flex gap-5">
-              <div className="icon1 rounded-full p-4 bg-gray-300 text-MentGrean hover:bg-MentGrean hover:text-white cursor-pointer">
+              <div className="icon1 transition duration-500 rounded-full p-4 bg-gray-300 text-MentGrean hover:bg-MentGrean hover:text-white cursor-pointer">
                 <FaFacebookF
                   onClick={() => navigate("https://www.facebook.com/")}
                   className="text-3xl"
                 />
               </div>
-              <div className="icon2 rounded-full p-4 bg-gray-300 text-MentGrean hover:bg-MentGrean hover:text-white cursor-pointer">
+              <div className="icon2 transition duration-500 rounded-full p-4 bg-gray-300 text-MentGrean hover:bg-MentGrean hover:text-white cursor-pointer">
                 <FaTwitter onClick={() => navigate("/")} className="text-3xl " />
               </div>
-              <div className="icon3 rounded-full p-4 bg-gray-300 text-MentGrean hover:bg-MentGrean hover:text-white cursor-pointer">
+              <div className="icon3 transition duration-500 rounded-full p-4 bg-gray-300 text-MentGrean hover:bg-MentGrean hover:text-white cursor-pointer">
                 <FaInstagram
                   onClick={() => navigate("https://www.instagram.com/")}
                   className="text-3xl"
                 />
               </div>
-              <div className="icon4 rounded-full p-4 bg-gray-300 text-MentGrean hover:bg-MentGrean hover:text-white cursor-pointer">
+              <div className="icon4 transition duration-500 rounded-full p-4 bg-gray-300 text-MentGrean hover:bg-MentGrean hover:text-white cursor-pointer">
                 <FaLinkedinIn
                   onClick={() => navigate("https://www.linkedin.com/feed/")}
                   className="text-3xl"
