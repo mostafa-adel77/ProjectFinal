@@ -45,7 +45,7 @@ export default function Footer() {
                 <ErrorMessage
                   name="name"
                   component="p"
-                  className="text-red-500 absolute left-10 -bottom-1"
+                  className="text-red-500  absolute left-6 -bottom-1"
                 />
 
                 <Field
@@ -57,7 +57,7 @@ export default function Footer() {
                 <ErrorMessage
                   name="email"
                   component="p"
-                  className="text-red-500 absolute right-15 md:right-40 -bottom-1"
+                  className="text-red-500 absolute right-30 md:right-60 -bottom-1"
                 />
 
                 <button

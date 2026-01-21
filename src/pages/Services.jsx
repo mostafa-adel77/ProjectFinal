@@ -5,14 +5,18 @@ import truncImg from "../assets/images/truck.svg";
 import bagImg from "../assets/images/bag.svg";
 import supportImg from "../assets/images/support.svg";
 import returnImg from "../assets/images/return.svg";
-import ProductCard from "../components/productCard";
 import Testemonial from "../components/Testemonial";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import ProductCard from "../components/ProductCard";
+import axios from "axios";
 
 export default function Services() {
   const navigate = useNavigate();
+  const [products, setProducts] = useState([]);
+  let domain = "http://localhost:1337";
+  let url = domain + "/api/products";
   useEffect(() => {
     AOS.init({
       duration: 800,
@@ -20,6 +24,10 @@ export default function Services() {
       mirror: true,
       offset: 120,
     });
+    axios
+      .get(url, { params: { populate: "*" } })
+      .then((res) => setProducts(res.data.data))
+      .catch((err) => console.log(err));
   }, []);
   return (
     <>
@@ -27,7 +35,11 @@ export default function Services() {
       <section className="w-full flex justify-center bg-MentGrean text-white">
         <div className="container px-5 py-20 flex flex-col lg:flex-row items-center gap-10">
           {/* LEFT */}
-          <div data-aos="fade-right" data-aos-once="false" className="lg:w-1/2 flex flex-col gap-12">
+          <div
+            data-aos="fade-right"
+            data-aos-once="false"
+            className="lg:w-1/2 flex flex-col gap-12"
+          >
             <h1 className="text-3xl md:text-6xl font-bold">Services</h1>
 
             <p className="text-Gray">
@@ -50,7 +62,11 @@ export default function Services() {
           </div>
 
           {/* RIGHT */}
-          <div data-aos="fade-left" data-aos-once="false" className="lg:w-1/2 flex justify-center relative">
+          <div
+            data-aos="fade-left"
+            data-aos-once="false"
+            className="lg:w-1/2 flex justify-center relative"
+          >
             <img className="absolute right-0" src={dotsGreen} alt="" />
             <img src={couchImg} alt="Couch" className="max-w-full z-40" />
           </div>
@@ -164,8 +180,8 @@ export default function Services() {
       </section>
 
       {/* BOTTOM SECTION */}
-      <section className="w-full flex justify-center bg-creamy">
-        <div className="container flex flex-col lg:flex-row">
+      <section className="w-full flex justify-center bg-creamy text-black">
+        <div className="container flex px-5 py-20">
           <div className="left w-full lg:w-115 px-5 py-20 flex flex-col gap-6">
             <h2 className=" text-2xl md:text-4xl font-semibold text-black">
               Crafted with excellent material.
@@ -183,8 +199,10 @@ export default function Services() {
               Explore
             </button>
           </div>
-          <div className="right grow px-5 py-15">
-            <ProductCard />
+          <div className="right grid grid-cols-1 md:grid-cols-3 gap-10">
+            {products.map((el) => (
+              <ProductCard key={el.documentId} product={el} />
+            ))}
           </div>
         </div>
       </section>

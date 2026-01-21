@@ -14,24 +14,24 @@ import ScrollTopButton from "./components/ScrollTopButton";
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<LayoutHeader />}>
-          <Route index element={<Home />} />
-          <Route path="shop" element={<Shop />} />
-          <Route path="aboutUs" element={<AboutUs />} />
-          <Route path="services" element={<Services />} />
-          <Route path="blog" element={<Blog />} />
-          <Route path="contactUs" element={<ContactUs />} />
-          <Route path="cart" element={<Cart />} />
-          <Route path="checkout" element={<Checkout />} />
-          <Route path="success" element={<Success />} />
-        </Route>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<LayoutHeader />}>
+            <Route index element={<Home />} />
+            <Route path="shop" element={<Shop />} />
+            <Route path="aboutUs" element={<AboutUs />} />
+            <Route path="services" element={<Services />} />
+            <Route path="blog" element={<Blog />} />
+            <Route path="contactUs" element={<ContactUs />} />
+            <Route path="cart" element={<Cart />} />
+            <Route path="checkout" element={<Checkout />} />
+            <Route path="success" element={<Success />} />
+          </Route>
 
-        <Route path="*" element={<h1>Error 404 | Page Not Found</h1>} />
-      </Routes>
-      <ScrollTopButton />
-      <Footer />
-    </BrowserRouter>
+          <Route path="*" element={<h1>Error 404 | Page Not Found</h1>} />
+        </Routes>
+        <ScrollTopButton />
+        <Footer />
+      </BrowserRouter>
   );
 }
