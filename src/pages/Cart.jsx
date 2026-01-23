@@ -4,20 +4,14 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import CartItem from "../components/CartItem";
 import { useEffect } from "react";
-import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "../store";
+import { FaArrowLeft } from "react-icons/fa";
 export default function Cart() {
   const { items, total } = useCart();
   const navigate = useNavigate();
-  let domain = "http://localhost:1337";
-  let url = domain + "/api/products";
   useEffect(() => {
     AOS.init({ duration: 800, once: false, mirror: true, offset: 120 });
-    axios
-      .get(url, { params: { populate: "*" } })
-      .then((res) => setProducts(res.data.data))
-      .catch((err) => console.log(err));
   }, []);
   return (
     <>
@@ -79,12 +73,24 @@ export default function Cart() {
               <div className="flex gap-21">
                 <h1>Total</h1> <h1>${total}</h1>
               </div>
-              <Link
-                to="/checkout"
-                className="w-full text-center p-5 bg-MentGrean rounded-full text-3xl font-bold text-white hover:cursor-pointer hover:bg-black transition duration-300"
-              >
-                Proceed To CheckOut
-              </Link>
+              {total > 0 ? (
+                <Link
+                  to="/checkout"
+                  className="w-full text-center p-5 bg-MentGrean rounded-full text-3xl font-bold text-white hover:bg-black transition"
+                >
+                  Proceed To CheckOut
+                </Link>
+              ) : (
+                <button
+                  onClick={() => navigate("/shop")}
+                  className="text-xl flex gap-4 items-center justify-center font-bold bg-black px-6 py-4 rounded-4xl text-white hover:cursor-pointer hover:text-white border-2 hover:border-white"
+                >
+                  <span className="text white">
+                    <FaArrowLeft />
+                  </span>
+                  Back To Shop
+                </button>
+              )}
             </div>
           </div>
         </div>

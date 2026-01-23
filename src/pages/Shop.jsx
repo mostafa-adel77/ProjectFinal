@@ -77,9 +77,6 @@ export default function Shop() {
           {products.map((el) => (
             <ProductCard key={el.documentId} product={el} />
           ))}
-          {products.map((el) => (
-            <ProductCard key={el.documentId} product={el} />
-          ))}
         </div>
       </section>
     </>

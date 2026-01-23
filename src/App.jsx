@@ -12,6 +12,7 @@ import Footer from "./components/Footer";
 import ScrollTopButton from "./components/ScrollTopButton";
 import MainLayout from "./MainLayout";
 import { Toaster } from "react-hot-toast";
+import PageNotFound from "./pages/PageNotFound";
 
 export default function App() {
   return (
@@ -30,7 +31,7 @@ export default function App() {
           <Route path="success" element={<Success />} />
         </Route>
 
-        <Route path="*" element={<h1>Error 404 | Page Not Found</h1>} />
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
       <ScrollTopButton />
       <Footer />

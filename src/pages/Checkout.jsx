@@ -1,11 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import BillingForm from "../components/BillingForm";
 import OrderSummary from "../components/OrderSummary";
+import { useCart } from "../store";
 
 export default function Checkout() {
   const navigate = useNavigate();
-  const [isFormValid, setFormValid] = useState(false); // <--- هنا
+  const { items } = useCart();
+  const [isFormValid, setFormValid] = useState(false);
+
+  useEffect(() => {
+    if (items.length === 0) {
+      navigate("/shop");
+    }
+  }, [items, navigate]);
 
   return (
     <>
@@ -32,7 +40,7 @@ export default function Checkout() {
           <div className="w-full flex flex-col lg:flex-row gap-7 p-4">
             <div className="left flex flex-col gap-5">
               <h1 className="text-3xl font-bold">Billing Details</h1>
-              <BillingForm setFormValid={setFormValid} /> 
+              <BillingForm setFormValid={setFormValid} />
             </div>
             <div className="right flex flex-col gap-5">
               <h3 className="text-3xl font-bold">Your Order</h3>

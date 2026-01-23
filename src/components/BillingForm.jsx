@@ -1,7 +1,6 @@
 import * as Yup from "yup";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useEffect } from "react";
-import { toast } from "react-hot-toast";
 
 export default function BillingForm({ setFormValid }) {
   const validationSchema = Yup.object({
@@ -28,16 +27,9 @@ export default function BillingForm({ setFormValid }) {
     Message: Yup.string().required("Message is required"),
   });
 
-  const handleSubmit = (values, { resetForm }) => {
-    console.log(values);
-    toast.success("Form submitted successfully!");
-    resetForm();
-  };
-
   return (
     <div className="bg-white p-8 rounded-xl shadow-2xl w-full lg:w-140 xl:w-180">
       <Formik
-        onSubmit={handleSubmit}
         initialValues={{
           firstName: "",
           lastName: "",
@@ -51,6 +43,7 @@ export default function BillingForm({ setFormValid }) {
         }}
         validationSchema={validationSchema}
       >
+        {/* note : isvalid and dirty => is a boolean in Formik */}
         {({ isValid, dirty }) => {
           useEffect(() => {
             setFormValid(isValid && dirty);
@@ -100,6 +93,8 @@ export default function BillingForm({ setFormValid }) {
                 >
                   <option value="">Select your country</option>
                   <option value="Egypt">Egypt</option>
+                  <option value="Algeria">Algeria</option>
+                  <option value="Qatar">Qatar</option>
                   <option value="USA">USA</option>
                   <option value="UK">UK</option>
                   <option value="Germany">Germany</option>

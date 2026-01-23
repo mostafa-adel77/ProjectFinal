@@ -1,9 +1,16 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import {FaFacebookF,FaInstagram,FaLinkedinIn,FaTelegramPlane,FaTwitter,} from "react-icons/fa";
+import {
+  FaFacebookF,
+  FaInstagram,
+  FaLinkedinIn,
+  FaTelegramPlane,
+  FaTwitter,
+} from "react-icons/fa";
 import { MdOutlineMailOutline } from "react-icons/md";
 import * as Yup from "yup";
 import sofaImg from "../assets/images/sofa.png";
 import { Link, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 export default function Footer() {
   const navigate = useNavigate();
@@ -59,8 +66,10 @@ export default function Footer() {
                   component="p"
                   className="text-red-500 absolute right-30 md:right-60 -bottom-1"
                 />
-
                 <button
+                  onClick={() => {
+                    toast.success("Form submitted successfully!");
+                  }}
                   type="submit"
                   className="bg-MentGrean cursor-pointer flex justify-center w-40 text-white rounded-xl p-2"
                 >
@@ -92,7 +101,10 @@ export default function Footer() {
                 />
               </div>
               <div className="icon2 transition duration-500 rounded-full p-4 bg-gray-300 text-MentGrean hover:bg-MentGrean hover:text-white cursor-pointer">
-                <FaTwitter onClick={() => navigate("/")} className="text-3xl " />
+                <FaTwitter
+                  onClick={() => navigate("/")}
+                  className="text-3xl "
+                />
               </div>
               <div className="icon3 transition duration-500 rounded-full p-4 bg-gray-300 text-MentGrean hover:bg-MentGrean hover:text-white cursor-pointer">
                 <FaInstagram
@@ -109,30 +121,31 @@ export default function Footer() {
             </div>
           </div>
           <div className="text-GrayBold flex flex-col gap-3 ">
-            <Link to={("/aboutus")}>Nordic Chair</Link>
-            <Link to={("/services")}>Kruzo Aero</Link>
-            <Link to={("/blog")}>Ergonomic Chair</Link>
-            <Link to={("/contactus")}>Contact us</Link>
-          </div>                  
-          <div className="text-GrayBold flex flex-col gap-3 ">
-            <Link to={("/")}>Support</Link>
-            <Link to={("/")}>Knowledge base</Link>
-            <Link to={("/")}>Live chat</Link>
+            <Link to={"/aboutus"}>Nordic Chair</Link>
+            <Link to={"/services"}>Kruzo Aero</Link>
+            <Link to={"/blog"}>Ergonomic Chair</Link>
+            <Link to={"/contactus"}>Contact us</Link>
           </div>
           <div className="text-GrayBold flex flex-col gap-3 ">
-            <Link to={("/")}>Jobs</Link>
-            <Link to={("/")}>Our team</Link>
-            <Link to={("/")}>Leadership</Link>
-            <Link to={("/")}>Privacy Policy</Link>
+            <Link to={"/"}>Support</Link>
+            <Link to={"/"}>Knowledge base</Link>
+            <Link to={"/"}>Live chat</Link>
           </div>
           <div className="text-GrayBold flex flex-col gap-3 ">
-            <Link to={("/")}>Nordic Chair</Link>
-            <Link to={("/")}>Kruzo Aero</Link>
-            <Link to={("/")}>Ergonomic Chair</Link>
+            <Link to={"/"}>Jobs</Link>
+            <Link to={"/"}>Our team</Link>
+            <Link to={"/"}>Leadership</Link>
+            <Link to={"/"}>Privacy Policy</Link>
           </div>
-
+          <div className="text-GrayBold flex flex-col gap-3 ">
+            <Link to={"/"}>Nordic Chair</Link>
+            <Link to={"/"}>Kruzo Aero</Link>
+            <Link to={"/"}>Ergonomic Chair</Link>
+          </div>
         </div>
-        <h1 className="text-3xl py-10 text-center font-bold text-MentGrean">Copyright © 2026 | Created By Mostafa Adel </h1>
+        <h1 className="text-3xl py-10 text-center font-bold text-MentGrean">
+          Copyright © 2026 | Created By Mostafa Adel{" "}
+        </h1>
       </div>
     </div>
   );

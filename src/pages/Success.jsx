@@ -1,9 +1,17 @@
 import { BsFillCartCheckFill } from "react-icons/bs";
 import { FaArrowLeft } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { useCart } from "../store";
+import { useEffect } from "react";
 
 export default function Success() {
   const navigate = useNavigate();
+  const { clearCart, items } = useCart();
+  useEffect(() => {
+    if (items.length === 0) {
+      navigate("/shop");
+    }
+  }, [items, navigate]);
   return (
     <>
       {/* TOP SECTION */}
@@ -23,7 +31,10 @@ export default function Success() {
             You order was successfuly completed.
           </h1>
           <button
-            onClick={() => navigate("/shop")}
+            onClick={() => {
+              navigate("/shop");
+              clearCart();
+            }}
             className="text-xl flex gap-4 items-center font-bold bg-black px-6 py-4 rounded-4xl text-white hover:cursor-pointer hover:text-white border-2 hover:border-white"
           >
             <span className="text white">
