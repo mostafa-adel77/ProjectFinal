@@ -3,29 +3,22 @@ import dotsGreen from "../assets/images/dots-green.svg";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import CartItem from "../components/CartItem";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
+import { useCart } from "../store";
 export default function Cart() {
-  const [products, setProducts] = useState([]);
+  const { items, total } = useCart();
+  const navigate = useNavigate();
   let domain = "http://localhost:1337";
   let url = domain + "/api/products";
-
   useEffect(() => {
-    AOS.init({
-      duration: 800,
-      once: false,
-      mirror: true,
-      offset: 120,
-    });
-
+    AOS.init({ duration: 800, once: false, mirror: true, offset: 120 });
     axios
       .get(url, { params: { populate: "*" } })
       .then((res) => setProducts(res.data.data))
       .catch((err) => console.log(err));
   }, []);
-
   return (
     <>
       {/* HERO */}
@@ -37,8 +30,13 @@ export default function Cart() {
               Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet
               velit. Aliquam vulputate velit imperdiet dolor tempor tristique.
             </p>
+            <button
+              onClick={() => navigate("/shop")}
+              className="text-xl w-full md:w-50 font-bold bg-Yellow px-6 py-4 rounded-4xl text-MentGrean hover:cursor-pointer hover:text-white hover:bg-MentGrean border-2 hover:border-white"
+            >
+              Shop Now
+            </button>
           </div>
-
           <div
             data-aos="fade-left"
             className="lg:w-1/2 flex justify-center relative"
@@ -48,7 +46,6 @@ export default function Cart() {
           </div>
         </div>
       </section>
-
       {/* CART TABLE */}
       <section className="w-full flex justify-center bg-creamy pb-30 md:pb-15">
         <div className="container p-5 text-black py-20">
@@ -63,12 +60,10 @@ export default function Cart() {
               <h1 className="text-center">Total</h1>
               <h1 className="text-center">Remove</h1>
             </div>
-
             <div className="w-full bg-MentGrean h-1 mb-6 min-w-187.5"></div>
-
             {/* Items */}
             <div className="flex flex-col gap-4 min-w-187.5">
-              {products.map((el) => (
+              {items.map((el) => (
                 <CartItem key={el.documentId} product={el} />
               ))}
             </div>
@@ -79,12 +74,10 @@ export default function Cart() {
             <h1 className="text-4xl font-bold">Cart Totals</h1>
             <div className="flex flex-col p-10 gap-10 rounded-4xl shadow-2xl text-2xl font-bold">
               <div className="flex gap-10">
-                <h1>SubTotal</h1>
-                <h1>$230</h1>
+                <h1>SubTotal</h1> <h1>${total}</h1>
               </div>
               <div className="flex gap-21">
-                <h1>Total</h1>
-                <h1>$230</h1>
+                <h1>Total</h1> <h1>${total}</h1>
               </div>
               <Link
                 to="/checkout"
