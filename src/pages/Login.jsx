@@ -4,6 +4,7 @@ import * as Yup from "yup";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -34,8 +35,18 @@ export default function Login() {
       })
       .catch((err) => {
         toast.error(err.response.data.error.message);
+        navigate("/register");
       });
   };
+
+  useEffect(() => {
+    let token = JSON.parse(
+      localStorage.getItem("token") || sessionStorage.getItem("token"),
+    );
+    if (token) {
+      navigate("/");
+    }
+  }, []);
   return (
     <>
       <section className="w-full h-dvh overflow-auto flex justify-center bg-[#160430]">
@@ -88,7 +99,12 @@ export default function Login() {
                   >
                     Login
                   </button>
-                  <h1 className="text-xl font-bold">Don't Have Account ? <Link to="/register" className="underline">Create Account</Link></h1>
+                  <h1 className="text-xl font-bold">
+                    Don't Have Account ?{" "}
+                    <Link to="/register" className="underline">
+                      Create Account
+                    </Link>
+                  </h1>
                 </Form>
               </Formik>
             </div>

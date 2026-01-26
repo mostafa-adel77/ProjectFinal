@@ -9,6 +9,7 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
+import toast from "react-hot-toast";
 
 export default function ContactUs() {
   const navigate = useNavigate();
@@ -21,6 +22,7 @@ export default function ContactUs() {
 
   const handleSubmit = (values, { resetForm }) => {
     sessionStorage.setItem("newsletter", JSON.stringify(values));
+    toast.success("The Form Is Submited!!")
     console.log(values);
     resetForm();
   };

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 export default function PageNotFound() {
   const navigate = useNavigate();
   return (
-    <section className="w-full flex justify-center bg-creamy">
+    <section className="w-full h-dvh flex justify-center bg-creamy">
       <div className="container flex flex-col justify-center items-center pb-50 md:pb-20">
         <img className="w-150" src={PageNotFoundImg} alt="" />
         <button

@@ -32,6 +32,7 @@ export default function Success() {
           </h1>
           <button
             onClick={() => {
+              sessionStorage.removeItem("values");
               navigate("/shop");
               clearCart();
             }}

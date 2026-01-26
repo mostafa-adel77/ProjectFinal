@@ -9,6 +9,7 @@ export default function MainLayout() {
   const [BarsOpen, setBarsOpen] = useState(false);
   const { items } = useCart();
   const navigate = useNavigate();
+
   return (
     <>
       {/* Header */}
@@ -63,7 +64,7 @@ export default function MainLayout() {
       <main className="w-full ">
         <Outlet />
       </main>
-            <Footer />
+      <Footer />
     </>
   );
 }

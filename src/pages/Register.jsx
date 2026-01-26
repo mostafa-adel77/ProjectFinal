@@ -4,12 +4,14 @@ import * as Yup from "yup";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 export default function Register() {
   const navigate = useNavigate();
   let domain = "https://store.skyready.online";
   let endPoint = "/api/auth/local/register";
   let url = domain + endPoint;
+
   const validationSchema = Yup.object({
     username: Yup.string().required(),
     email: Yup.string().required().email(),
@@ -21,20 +23,27 @@ export default function Register() {
       .matches(/[0-9]/, "Must contain at least one number")
       .matches(/[^A-Za-z0-9]/, "Must contain at least one special character"),
   });
+
   const initialValues = { username: "", email: "", password: "" };
   const handleRegister = (initialValues) => {
     axios
       .post(url, initialValues)
-      .then((res) => {
-        let token = JSON.stringify(res.data.jwt);
-        sessionStorage.setItem("token", token);
-        toast.success("Register Success!!!");
-        navigate("/login");
+      .then(() => {
+        toast.success("Register Successfully!!!");
+        navigate("/login")
       })
       .catch((err) => {
         toast.error(err.response.data.error.message);
       });
   };
+  useEffect(() => {
+    let token = JSON.parse(
+      localStorage.getItem("token") || sessionStorage.getItem("token"),
+    );
+    if (token) {
+      navigate("/");
+    }
+  }, []);
   return (
     <>
       <section className="w-full h-dvh overflow-auto flex justify-center bg-[#160430]">
@@ -89,7 +98,12 @@ export default function Register() {
                   >
                     Register
                   </button>
-                  <h1 className="text-xl font-bold">Already Have Account ? <Link to="/login" className="underline">Please Login</Link></h1>                  
+                  <h1 className="text-xl font-bold">
+                    Already Have Account ?
+                    <Link to="/login" className="underline">
+                      Please Login
+                    </Link>
+                  </h1>
                 </Form>
               </Formik>
             </div>

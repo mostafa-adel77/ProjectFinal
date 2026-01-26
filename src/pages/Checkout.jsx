@@ -2,13 +2,19 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import BillingForm from "../components/BillingForm";
 import OrderSummary from "../components/OrderSummary";
-import { useCart } from "../store";
-
+import Payment from "../components/payment";
 export default function Checkout() {
   const navigate = useNavigate();
-  const { items } = useCart();
   const [isFormValid, setFormValid] = useState(false);
 
+    useEffect(() => {
+    let token = JSON.parse(
+      localStorage.getItem("token") || sessionStorage.getItem("token"),
+    );
+    if (!token) {
+      navigate("/login");
+    }
+  }, []);
 
   return (
     <>
@@ -38,6 +44,8 @@ export default function Checkout() {
               <BillingForm setFormValid={setFormValid} />
             </div>
             <div className="right flex flex-col gap-5">
+              <h3 className="text-3xl font-bold">Payment</h3>
+              <Payment />
               <h3 className="text-3xl font-bold">Your Order</h3>
               <OrderSummary isFormValid={isFormValid} />
             </div>
