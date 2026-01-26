@@ -4,6 +4,7 @@ import { IoCartOutline } from "react-icons/io5";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import { useCart } from "./store";
+import Footer from "./components/Footer";
 export default function MainLayout() {
   const [BarsOpen, setBarsOpen] = useState(false);
   const { items } = useCart();
@@ -62,6 +63,7 @@ export default function MainLayout() {
       <main className="w-full ">
         <Outlet />
       </main>
+            <Footer />
     </>
   );
 }

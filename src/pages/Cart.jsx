@@ -4,12 +4,19 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import CartItem from "../components/CartItem";
 import { useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useCart } from "../store";
 import { FaArrowLeft } from "react-icons/fa";
 export default function Cart() {
   const { items, total } = useCart();
   const navigate = useNavigate();
+
+  const checkToken = () => {
+    let token = JSON.parse(
+      localStorage.getItem("token") || sessionStorage.getItem("token"),
+    );
+    token ? navigate("/checkout") : navigate("/login");
+  };
   useEffect(() => {
     AOS.init({ duration: 800, once: false, mirror: true, offset: 120 });
   }, []);
@@ -74,12 +81,12 @@ export default function Cart() {
                 <h1>Total</h1> <h1>${total}</h1>
               </div>
               {total > 0 ? (
-                <Link
-                  to="/checkout"
-                  className="w-full text-center p-5 bg-MentGrean rounded-full text-3xl font-bold text-white hover:bg-black transition"
+                <button
+                  onClick={checkToken}
+                  className="w-full text-center p-5 bg-MentGrean rounded-full text-3xl font-bold text-white hover:bg-black duration-200 hover:cursor-pointer"
                 >
                   Proceed To CheckOut
-                </Link>
+                </button>
               ) : (
                 <button
                   onClick={() => navigate("/shop")}

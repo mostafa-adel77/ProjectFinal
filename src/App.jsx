@@ -8,11 +8,12 @@ import AboutUs from "./pages/AboutUs";
 import Services from "./pages/Services";
 import Blog from "./pages/Blog";
 import ContactUs from "./pages/ContactUs";
-import Footer from "./components/Footer";
 import ScrollTopButton from "./components/ScrollTopButton";
 import MainLayout from "./MainLayout";
 import { Toaster } from "react-hot-toast";
 import PageNotFound from "./pages/PageNotFound";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 export default function App() {
   return (
@@ -31,10 +32,11 @@ export default function App() {
           <Route path="success" element={<Success />} />
         </Route>
 
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
       <ScrollTopButton />
-      <Footer />
     </BrowserRouter>
   );
 }

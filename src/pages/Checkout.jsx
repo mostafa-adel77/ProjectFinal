@@ -9,11 +9,6 @@ export default function Checkout() {
   const { items } = useCart();
   const [isFormValid, setFormValid] = useState(false);
 
-  useEffect(() => {
-    if (items.length === 0) {
-      navigate("/shop");
-    }
-  }, [items, navigate]);
 
   return (
     <>
