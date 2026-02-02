@@ -3,17 +3,26 @@ import { useNavigate } from "react-router-dom";
 import BillingForm from "../components/BillingForm";
 import OrderSummary from "../components/OrderSummary";
 import Payment from "../components/payment";
+import axios from "axios";
 export default function Checkout() {
   const navigate = useNavigate();
   const [isFormValid, setFormValid] = useState(false);
 
-    useEffect(() => {
-    let token = JSON.parse(
-      localStorage.getItem("token") || sessionStorage.getItem("token"),
-    );
-    if (!token) {
-      navigate("/login");
-    }
+  useEffect(() => {
+    let domain = "https://store.skyready.online";
+    let endPoint = "/api/users/me";
+    let url = domain + endPoint;
+
+    let token =
+      localStorage.getItem("token") || sessionStorage.getItem("token");
+
+    axios
+      .get(url, { headers: { Authorization: `Bearer ${token}` } })
+      .catch(() => {
+        navigate("/login");
+        localStorage.removeItem("token");
+        sessionStorage.removeItem("token");
+      });
   }, []);
 
   return (

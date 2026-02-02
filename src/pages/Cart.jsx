@@ -3,19 +3,34 @@ import dotsGreen from "../assets/images/dots-green.svg";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import CartItem from "../components/CartItem";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../store";
 import { FaArrowLeft } from "react-icons/fa";
+import toast from "react-hot-toast";
 export default function Cart() {
-  const { items, total } = useCart();
+  const { items } = useCart();
   const navigate = useNavigate();
+  const [total, setTotal] = useState(0);
+
+  useEffect(() => {
+    let finalTotal = 0;
+    items.forEach((el) => {
+      finalTotal += el.price * el.qty;
+    });
+    setTotal(finalTotal);
+  }, [items]);
 
   const checkToken = () => {
-    let token = JSON.parse(
-      localStorage.getItem("token") || sessionStorage.getItem("token"),
-    );
-    token ? navigate("/checkout") : navigate("/login");
+    let token =
+      localStorage.getItem("token") || sessionStorage.getItem("token");
+    if (token) {
+      navigate("/checkout");
+      toast.success("You is logged in!!!💯");
+    } else {
+      navigate("/login");
+      toast.error("You is not logged, please Login!!!🤦‍♂️");
+    }
   };
   useEffect(() => {
     AOS.init({ duration: 800, once: false, mirror: true, offset: 120 });

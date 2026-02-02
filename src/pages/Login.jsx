@@ -26,11 +26,11 @@ export default function Login() {
     axios
       .post(url, dataSend)
       .then((res) => {
-        let token = JSON.stringify(res.data.jwt);
+        let token = res.data.jwt;
         initialValues.isChecked
           ? localStorage.setItem("token", token)
           : sessionStorage.setItem("token", token);
-        toast.success("Login Success!!!");
+        toast.success("Login Successfully!!!💯👍");
         navigate("/checkout");
       })
       .catch((err) => {
@@ -40,9 +40,8 @@ export default function Login() {
   };
 
   useEffect(() => {
-    let token = JSON.parse(
-      localStorage.getItem("token") || sessionStorage.getItem("token"),
-    );
+    let token =
+      localStorage.getItem("token") || sessionStorage.getItem("token");
     if (token) {
       navigate("/");
     }

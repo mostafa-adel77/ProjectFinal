@@ -29,17 +29,16 @@ export default function Register() {
     axios
       .post(url, initialValues)
       .then(() => {
-        toast.success("Register Successfully!!!");
-        navigate("/login")
+        toast.success("Register Successfully!!!💯👍");
+        navigate("/login");
       })
       .catch((err) => {
         toast.error(err.response.data.error.message);
       });
   };
   useEffect(() => {
-    let token = JSON.parse(
-      localStorage.getItem("token") || sessionStorage.getItem("token"),
-    );
+    let token =
+      localStorage.getItem("token") || sessionStorage.getItem("token");
     if (token) {
       navigate("/");
     }

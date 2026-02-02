@@ -1,93 +1,48 @@
 import toast from "react-hot-toast";
 import { create } from "zustand";
 
-const cartStore = "furniCart";
-const cartTotalStore = "furniCartTotal";
-
 export const useCart = create((set) => ({
-  items: JSON.parse(sessionStorage.getItem(cartStore) || "[]"),
-  total: Number(sessionStorage.getItem(cartTotalStore)) || 0,
+  items: [],
 
   addToCart: (newProduct) =>
     set((state) => {
       const products = [...state.items];
-      const index = products.findIndex(
-        (el) => el.documentId === newProduct.documentId
-      );
-
+      const index = products.findIndex((el) => el.documentId === newProduct.documentId);
       if (index === -1) {
         products.push({ ...newProduct, qty: 1 });
         toast.success("Added To Cart");
       } else {
-        products[index] = {
-          ...products[index],
-          qty: products[index].qty + 1,
-        };
-        toast.success(`Item Quantity Changed To : ${products[index].qty}`);
+        products[index] = {...products[index],qty: products[index].qty + 1,};
+        toast.success(
+          `Item Quantity Changed To : ${products[index].qty}`
+        );
       }
 
-      const total = products.reduce(
-        (sum, el) => sum + el.qty * el.price,
-        0
-      );
-
-      sessionStorage.setItem(cartStore, JSON.stringify(products));
-      sessionStorage.setItem(cartTotalStore, total);
-
-      return { items: products, total };
+      return { items: products };
     }),
 
   incrementQty: (documentId) =>
     set((state) => {
       const products = [...state.items];
-      const index = products.findIndex(
-        (el) => el.documentId === documentId
-      );
-
-      products[index] = {
-        ...products[index],
-        qty: products[index].qty + 1,
-      };
-
-      const total = products.reduce(
-        (sum, el) => sum + el.qty * el.price,
-        0
-      );
-
-      sessionStorage.setItem(cartStore, JSON.stringify(products));
-      sessionStorage.setItem(cartTotalStore, total);
-
+      const index = products.findIndex((el) => el.documentId === documentId);
+      products[index] = {...products[index],qty: products[index].qty + 1,};
       toast.success(`Item Quantity Changed To : ${products[index].qty}`);
-      return { items: products, total };
+      return { items: products };
     }),
 
   decrementQty: (documentId) =>
     set((state) => {
       const products = [...state.items];
-      const index = products.findIndex(
-        (el) => el.documentId === documentId
-      );
-
+      const index = products.findIndex((el) => el.documentId === documentId);
       if (products[index].qty > 1) {
-        products[index] = {
-          ...products[index],
-          qty: products[index].qty - 1,
-        };
+        products[index] = {...products[index],qty: products[index].qty - 1,};
         toast.success(`Item Quantity Changed To : ${products[index].qty}`);
       } else {
         products.splice(index, 1);
         toast.success("Item Removed From Cart");
       }
 
-      const total = products.reduce(
-        (sum, el) => sum + el.qty * el.price,
-        0
-      );
-
-      sessionStorage.setItem(cartStore, JSON.stringify(products));
-      sessionStorage.setItem(cartTotalStore, total);
-
-      return { items: products, total };
+      return { items: products };
     }),
 
   removeItemFromCart: (documentId) =>
@@ -96,25 +51,10 @@ export const useCart = create((set) => ({
       const index = products.findIndex(
         (el) => el.documentId === documentId
       );
-
       products.splice(index, 1);
       toast.success("Item Removed From Cart");
-
-      const total = products.reduce(
-        (sum, el) => sum + el.qty * el.price,
-        0
-      );
-
-      sessionStorage.setItem(cartStore, JSON.stringify(products));
-      sessionStorage.setItem(cartTotalStore, total);
-
-      return { items: products, total };
+      return { items: products };
     }),
 
-  clearCart: () =>
-    set(() => {
-      sessionStorage.removeItem(cartStore);
-      sessionStorage.removeItem(cartTotalStore);
-      return { items: [], total: 0 };
-    }),
+  clearCart: () => set({ items: [] }),
 }));

@@ -1,9 +1,19 @@
 import { Link } from "react-router-dom";
 import { useCart } from "../store";
 import { toast } from "react-hot-toast";
+import { useEffect, useState } from "react";
 
 export default function OrderSummary({ isFormValid }) {
-  const { items, total } = useCart();
+  const { items } = useCart();
+  const [total, setTotal] = useState(0);
+
+  useEffect(() => {
+    let finalTotal = 0;
+    items.forEach((el) => {
+      finalTotal += el.price * el.qty;
+    });
+    setTotal(finalTotal);
+  }, [items]);
 
   return (
     <div className="bg-white p-6 flex flex-col gap-5 rounded-xl shadow-2xl w-full lg:w-90 xl:w-130">

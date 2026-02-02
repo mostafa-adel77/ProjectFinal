@@ -6,12 +6,11 @@ import { useEffect } from "react";
 
 export default function Success() {
   const navigate = useNavigate();
-  const { clearCart, items } = useCart();
+  let { clearCart } = useCart();
   useEffect(() => {
-    if (items.length === 0) {
-      navigate("/shop");
-    }
-  }, [items, navigate]);
+    clearCart();
+  }, []);
+
   return (
     <>
       {/* TOP SECTION */}
@@ -32,9 +31,7 @@ export default function Success() {
           </h1>
           <button
             onClick={() => {
-              sessionStorage.removeItem("values");
               navigate("/shop");
-              clearCart();
             }}
             className="text-xl flex gap-4 items-center font-bold bg-black px-6 py-4 rounded-4xl text-white hover:cursor-pointer hover:text-white border-2 hover:border-white"
           >
